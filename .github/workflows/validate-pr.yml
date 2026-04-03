@@ -30,13 +30,20 @@ jobs:
       - name: Get changed YAML files
         id: changed
         run: |
-          NEW=$(git diff --name-only --diff-filter=A origin/${{ github.base_ref }}...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
-          MODIFIED=$(git diff --name-only --diff-filter=M origin/${{ github.base_ref }}...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
+          BASE="origin/${{ github.base_ref }}"
+          NEW=$(git diff --name-only --diff-filter=A "$BASE"...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
+          MODIFIED=$(git diff --name-only --diff-filter=CMRT "$BASE"...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
+          DELETED=$(git diff --name-only --diff-filter=D "$BASE"...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
           echo "new=$NEW" >> "$GITHUB_OUTPUT"
           echo "modified=$MODIFIED" >> "$GITHUB_OUTPUT"
+          echo "deleted=$DELETED" >> "$GITHUB_OUTPUT"
 
       - name: Validate
-        if: steps.changed.outputs.new != '' || steps.changed.outputs.modified != ''
-        run: node .github/scripts/validate.ts --new ${{ steps.changed.outputs.new }} --modified ${{ steps.changed.outputs.modified }}
+        if: steps.changed.outputs.new != '' || steps.changed.outputs.modified != '' || steps.changed.outputs.deleted != ''
+        run: >
+          node .github/scripts/validate.ts
+          --new ${{ steps.changed.outputs.new }}
+          --modified ${{ steps.changed.outputs.modified }}
+          --deleted ${{ steps.changed.outputs.deleted }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

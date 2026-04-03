@@ -2,7 +2,7 @@
 
 A curated registry of open-source projects built by [Azerbaijan GitHub Community](https://github.com/Azerbaijan-Git-Community) members.
 
-Browse the live showcase at [azgitcommunity.dev/showcase](https://azgitcommunity.dev/showcase).
+Browse the live showcase at [azerbaijangithubcommunity.vercel.app/showcase](https://azerbaijangithubcommunity.vercel.app/showcase).
 
 ## Submit Your Project
 
@@ -18,4 +18,4 @@ After your PR is merged, a bot will inject timestamps and the project will appea
 - A CI workflow validates the schema on every PR
 - On merge, a bot injects `addedAt`/`updatedAt` timestamps automatically
 - A webhook notifies the website, which syncs GitHub metadata (stars, issues, PRs, license, language) into its database
-- The [/showcase](https://azgitcommunity.dev/showcase) page renders project cards from this data
+- The [/showcase](https://azerbaijangithubcommunity.vercel.app/showcase) page renders project cards from this data

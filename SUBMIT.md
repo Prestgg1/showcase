@@ -50,7 +50,7 @@ File: `projects/octocat-hello-world.yaml`
 ```yaml
 repo: "octocat/hello-world"
 submittedBy: "octocat"
-banner: "https://raw.githubusercontent.com/octocat/hello-world/main/banner.png"
+banner: "https://1000logos.net/wp-content/uploads/2018/11/GitHub-logo.jpg"
 npm: "hello-world"
 website: "https://hello-world.example.com"
 ```
@@ -59,7 +59,7 @@ website: "https://hello-world.example.com"
 
 1. A bot automatically adds `addedAt` and `updatedAt` timestamps to your file
 2. A webhook notifies the website to sync your project's GitHub metadata (stars, issues, PRs, license, language)
-3. Your project card appears on [azgitcommunity.dev/showcase](https://azgitcommunity.dev/showcase) within minutes
+3. Your project card appears on [azerbaijangithubcommunity.vercel.app/showcase](https://azerbaijangithubcommunity.vercel.app/showcase) within minutes
 
 ## Updating Your Project
 

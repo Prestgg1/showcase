@@ -30,11 +30,14 @@ jobs:
       - name: Get changed YAML files
         id: changed
         run: |
-          FILES=$(git diff --name-only --diff-filter=ACM origin/${{ github.base_ref }}...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
-          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+          NEW=$(git diff --name-only --diff-filter=A origin/${{ github.base_ref }}...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
+          MODIFIED=$(git diff --name-only --diff-filter=M origin/${{ github.base_ref }}...HEAD -- 'projects/*.yaml' | tr '\n' ' ')
+          echo "new=$NEW" >> "$GITHUB_OUTPUT"
+          echo "modified=$MODIFIED" >> "$GITHUB_OUTPUT"
+          echo "has_files=$( [ -n \"$NEW$MODIFIED\" ] && echo true || echo false )" >> "$GITHUB_OUTPUT"
 
       - name: Validate
-        if: steps.changed.outputs.files != ''
-        run: node .github/scripts/validate.ts ${{ steps.changed.outputs.files }}
+        if: steps.changed.outputs.has_files == 'true'
+        run: node .github/scripts/validate.ts --new ${{ steps.changed.outputs.new }} --modified ${{ steps.changed.outputs.modified }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

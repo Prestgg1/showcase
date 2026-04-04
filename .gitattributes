@@ -12,4 +12,5 @@
 
 
 # Linguist
-*.ts linguist-detectable=true 
+*.ts linguist-language=TypeScript
+projects/*.yaml linguist-detectable=true
